@@ -14,7 +14,8 @@ import {
   setDoc,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  getDoc // ✅ Added missing import
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // Your Firebase config
@@ -41,7 +42,7 @@ if (signupForm) {
   signupForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const fullName = signupForm['fullname'].value.trim();
+    const fullName = signupForm['fullname'].value.trim(); // ✅ Make sure input name="fullname"
     const email = signupForm['email'].value.trim();
     const password = signupForm['password'].value;
 
@@ -84,6 +85,7 @@ if (loginForm) {
       });
   });
 }
+
 // ===========================
 // Logout Handler
 // ===========================
@@ -98,18 +100,19 @@ if (logoutBtn) {
       })
       .catch((err) => {
         alert("Logout failed: " + err.message);
-      });
-  });
+      });
+  });
+}
 
- 
+// ===========================
 // Handle Auth State
+// ===========================
 onAuthStateChanged(auth, (user) => {
   if (window.location.pathname.includes("dashboard.html")) {
     if (user) {
       // Load user's posts
       loadScheduledPosts(user);
 
-      // Schedule post form
       const postForm = document.getElementById("postForm");
       if (postForm) {
         postForm.addEventListener("submit", async (e) => {
@@ -142,7 +145,9 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Load and display scheduled posts
+// ===========================
+// Load Scheduled Posts
+// ===========================
 async function loadScheduledPosts(user) {
   const postList = document.getElementById("postList");
   if (!postList) return;
@@ -171,11 +176,11 @@ async function loadScheduledPosts(user) {
     postList.innerHTML = html;
   } catch (err) {
     postList.innerHTML = <li>Error loading posts: ${err.message}</li>;
-  }
+  }
 }
 
 // ===========================
-// Display User Info on Dashboard
+// Display User Name on Dashboard
 // ===========================
 const welcomeName = document.getElementById("welcomeName");
 
@@ -190,27 +195,26 @@ onAuthStateChanged(auth, async (user) => {
     }
   }
 
-  // Optional: redirect if not logged in
   if (!user && window.location.pathname.includes("dashboard.html")) {
     window.location.href = "index.html";
   }
 });
 
-
-  // --- PROTECT DASHBOARD & GREET USER ---
-  if (window.location.pathname.endsWith("dashboard.html")) {
-    onAuthStateChanged(auth, async user => {
-      if (!user) return window.location.href = "login.html";
-
-      // fetch user profile
-      const docSnap = await getDoc(doc(db, "users", user.uid));
-      const name    = docSnap.exists() ? docSnap.data().fullName : "Pilot";
-      document.getElementById("welcomeMsg").textContent = `Welcome, ${name}!`;
-    });
-  }
-}
 // ===========================
-// Schedule Post Handler
+// Greet Logged-In User in Dashboard (Alt Display)
+// ===========================
+if (window.location.pathname.endsWith("dashboard.html")) {
+  onAuthStateChanged(auth, async user => {
+    if (!user) return window.location.href = "login.html";
+
+    const docSnap = await getDoc(doc(db, "users", user.uid));
+    const name = docSnap.exists() ? docSnap.data().fullName : "Pilot";
+    document.getElementById("welcomeMsg").textContent = `Welcome, ${name}!`;
+  });
+}
+
+// ===========================
+// Schedule Button (Alt Method)
 // ===========================
 const scheduleBtn = document.getElementById("scheduleBtn");
 
@@ -242,9 +246,10 @@ if (scheduleBtn) {
       document.getElementById("postDate").value = "";
     } catch (err) {
       alert("Error scheduling post: " + err.message);
-    }
-  });
+    }
+  });
 }
+
 // ===========================
 // Fake AI Advice Generator
 // ===========================
@@ -264,4 +269,4 @@ if (adviceBtn && adviceBox) {
     const random = fakeTips[Math.floor(Math.random() * fakeTips.length)];
     adviceBox.textContent = random;
   });
-} 
+}
