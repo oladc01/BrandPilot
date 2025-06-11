@@ -1,0 +1,58 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrandPilot - Social Media Co-Pilot</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+  firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+      window.location.href = "login.html";
+    }
+  });
+</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCG-oLZ9i4PjW_onVTyDHJAttCYefzVHAI",
+    authDomain: "brandpilot-c083d.firebaseapp.com",
+    projectId: "brandpilot-c083d",
+    storageBucket: "brandpilot-c083d.firebasestorage.app",
+    messagingSenderId: "94968258445",
+    appId: "1:94968258445:web:a29afc554d2cecb0b927c4"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🚀 BrandPilot</div>
+    <nav>
+      <a href="login.html">Login</a>
+      <a href="signup.html" class="cta">Get Started</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Manage Your Social Media Like a Pro</h1>
+      <p>Schedule posts, edit videos, and get AI-powered advice – all in one platform.</p>
+      <a href="signup.html" class="cta-btn">Start for Free</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 BrandPilot. Built for creators and business owners.</p>
+  </footer>
+</body>
+</html>

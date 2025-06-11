@@ -1,0 +1,53 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard - BrandPilot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🚀 BrandPilot</div>
+    <nav>
+    
+      <a href="index.html">Home</a>
+      <a href="login.html">Logout</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Welcome to Your Dashboard</h1>
+      <p>This is where your journey starts — schedule posts, get AI insights, and more.</p>
+    </div>
+  </section>
+  <!-- Schedule Post -->
+<div class="schedule-box">
+  <h3>📅 Schedule a New Post</h3>
+  <input type="text" id="postContent" placeholder="What's your post about?" />
+  <input type="datetime-local" id="postDate" />
+  <button id="scheduleBtn">Schedule Post</button>
+</div>
+<!-- Schedule form -->
+<form id="postForm">
+  <input id="postContent" placeholder="What's your post about?" />
+  <input id="postDate" type="datetime-local" />
+  <button type="submit">Schedule Post</button>
+</form>
+
+<!-- Show scheduled posts -->
+<div class="scheduled-posts-box">
+  <h3>📋 Your Scheduled Posts</h3>
+  <ul id="postList"></ul>
+</div>
+
+<!-- AI Advisor -->
+<div class="advisor-box">
+  <h3>🤖 AI Advisor</h3>
+  <p id="adviceBox">Your AI marketing advice will show here...</p>
+  <button id="generateAdviceBtn">Generate Advice</button>
+</div>
+</body>
+</html>
